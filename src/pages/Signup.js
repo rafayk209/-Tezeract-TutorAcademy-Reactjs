@@ -1,8 +1,11 @@
-import React, { useState } from "react";
-import Axios from "axios";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
-import "../App.css";
+import validator from 'validator';
+import isEmail from 'validator/lib/isEmail';
+
+import React, { useState } from 'react';
+import Axios from 'axios';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import '../App.css';
 import {
   Grid,
   Paper,
@@ -11,44 +14,58 @@ import {
   TextField,
   Button,
   Hidden,
-} from "@material-ui/core";
+} from '@material-ui/core';
 
 const Signup = () => {
   const paperStyle = {
     padding: 20,
     width: 300,
-    margin: "0 auto",
-    marginTop: "30px",
+    margin: '0 auto',
+    marginTop: '30px',
   };
-  const btnstyle = { margin: "8px 0", backgroundColor: "#56c3ff" };
+  const btnstyle = { margin: '8px 0', backgroundColor: '#56c3ff' };
   const headerStyle = { margin: 0 };
-  const avatarStyle = { backgroundColor: "#56c3ff" };
-  const linkStyle = { color: "#109eea" };
+  const avatarStyle = { backgroundColor: '#56c3ff' };
+  const linkStyle = { color: '#109eea' };
 
   const history = useHistory();
 
-  const [roleReg, setRoleReg] = useState("");
-  const [emailReg, setEmailReg] = useState("");
-  const [passwordReg, setPasswordReg] = useState("");
-  const [nameReg, setNameReg] = useState("");
+  const [roleReg, setRoleReg] = useState('');
+  const [emailReg, setEmailReg] = useState('');
+  const [passwordReg, setPasswordReg] = useState('');
+  const [nameReg, setNameReg] = useState('');
 
   // Axios.defaults.withCredentials = true;
   const register = async () => {
-    await Axios.post("http://localhost:3002/register", {
-      name: nameReg,
-      role: roleReg,
-      email: emailReg,
-      password: passwordReg,
-    }).then((response) => {
-      console.log(response.data);
-      console.log(response.data.id);
-      console.log(response.data.id.email);
-      history.push("/login");
-    });
+    if (/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g.test(emailReg)) {
+      console.log(emailReg);
+
+      await Axios.post(
+        'https://tezeract-tutoracademy-web.herokuapp.com/register',
+        {
+          name: nameReg,
+          role: roleReg,
+          email: emailReg,
+          password: passwordReg,
+        },
+      ).then(response => {
+        console.log(response.data);
+        console.log(response.data.id.error);
+        console.log(response.data.id.email);
+        if (response.data.id.error) {
+          alert(response.data.id.error);
+        }
+        if (response.data.id.email) {
+          history.push('/login');
+        }
+      });
+    } else {
+      alert('email format is not valid');
+    }
   };
-  const onSubmit = (e) => {
+  const onSubmit = e => {
     e.preventDefault();
-    console.log("refresh prevented");
+    // console.log('refresh prevented');
   };
 
   return (
@@ -64,18 +81,18 @@ const Signup = () => {
         </Grid>
         <form onSubmit={onSubmit}>
           <div
-            onChange={(e) => {
+            onChange={e => {
               setRoleReg(e.target.value);
             }}
           >
-            <input type="radio" value="student" name="role" /> Student{" "}
+            <input type="radio" value="student" name="role" /> Student{' '}
             <input type="radio" value="tutor" name="role" /> Tutor
           </div>
           <TextField
             fullWidth
             label="Name"
             placeholder="Enter your name"
-            onChange={(e) => {
+            onChange={e => {
               setNameReg(e.target.value);
             }}
           />
@@ -83,7 +100,7 @@ const Signup = () => {
             fullWidth
             label="Email"
             placeholder="Enter your email"
-            onChange={(e) => {
+            onChange={e => {
               setEmailReg(e.target.value);
             }}
           />
@@ -93,7 +110,7 @@ const Signup = () => {
             label="Password"
             type="password"
             placeholder="Enter your password"
-            onChange={(e) => {
+            onChange={e => {
               setPasswordReg(e.target.value);
             }}
           />

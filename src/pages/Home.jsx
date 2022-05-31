@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 
 function Home(props) {
   return (
@@ -11,11 +11,11 @@ function Home(props) {
                 <div className="col-md-6 pt-2 pt-lg-5 order-2 order-lg-1 d-flex justify-content-center flex-column">
                   <h1>
                     {props.name}
-                    <strong>Tutor Academy</strong>
+                    <strong>Tezeract Academy</strong>
                   </h1>
                   <h2 className="mt-2">We are here to spread education</h2>
                   <NavLink to={props.visit}>
-                    <button type="button" class="btn btn-info mt-2">
+                    <button type="button" className="btn btn-info mt-2">
                       {props.button}
                     </button>
                   </NavLink>

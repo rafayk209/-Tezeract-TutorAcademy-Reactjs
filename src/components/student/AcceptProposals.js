@@ -1,44 +1,44 @@
-import React, { useState, useEffect } from "react";
-import { bindActionCreators } from "redux";
-import { actionCreators } from "../../state/index";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { TextField, Button, CardActionArea, CardActions } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import Axios from "axios";
-import { Avatar } from "@material-ui/core";
-import { textAlign } from "@mui/system";
+import React, { useState, useEffect } from 'react';
+import { bindActionCreators } from 'redux';
+import { actionCreators } from '../../state/index';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { TextField, Button, CardActionArea, CardActions } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import Axios from 'axios';
+import { Avatar } from '@material-ui/core';
+import { textAlign } from '@mui/system';
 
 const textField = {
   marginTop: 10,
 };
 const avatarStyle = {
-  backgroundColor: "#56c3ff",
-  margin: "auto",
-  color: "#ffff",
+  backgroundColor: '#56c3ff',
+  margin: 'auto',
+  color: '#ffff',
 };
 const center = {
-  margin: "auto",
+  margin: 'auto',
 };
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
   width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 };
 
-const Posts = (props) => {
-  const email = useSelector((state) => state.amount);
+const Posts = props => {
+  const email = useSelector(state => state.amount);
 
   const { id, course, emailp, coursep, descriptionp } = props;
   console.log(id, emailp, coursep, descriptionp);
@@ -97,9 +97,6 @@ const Posts = (props) => {
               </Typography>
             </CardContent>
           </CardActionArea>
-          <CardActions>
-            <Button>reject</Button>
-          </CardActions>
         </Card>
         <br />
       </div>

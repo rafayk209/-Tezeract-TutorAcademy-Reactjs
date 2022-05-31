@@ -1,11 +1,11 @@
-import React, { useState, createContext } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actionCreators } from "../state/index";
+import React, { useState, createContext } from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actionCreators } from '../state/index';
 
-import Axios from "axios";
-import { useHistory } from "react-router-dom";
+import Axios from 'axios';
+import { useHistory } from 'react-router-dom';
 import {
   Grid,
   Paper,
@@ -13,45 +13,48 @@ import {
   TextField,
   Button,
   Typography,
-} from "@material-ui/core";
+} from '@material-ui/core';
 const Login = () => {
   const paperStyle = {
     padding: 20,
     width: 300,
-    margin: "0 auto",
-    marginTop: "30px",
+    margin: '0 auto',
+    marginTop: '30px',
   };
-  const avatarStyle = { backgroundColor: "#56c3ff" };
-  const linkStyle = { color: "#109eea" };
-  const btnstyle = { margin: "8px 0", backgroundColor: "#56c3ff" };
+  const avatarStyle = { backgroundColor: '#56c3ff' };
+  const linkStyle = { color: '#109eea' };
+  const btnstyle = { margin: '8px 0', backgroundColor: '#56c3ff' };
   const history = useHistory();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loginStatus, setLoginStatus] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loginStatus, setLoginStatus] = useState('');
 
   const dispatch = useDispatch();
   const { getLoginEmail, depositMoney } = bindActionCreators(
     actionCreators,
-    dispatch
+    dispatch,
   );
 
   const login = async () => {
-    await Axios.post("http://localhost:3002/register/login", {
-      email: email,
-      password: password,
-    }).then((response) => {
-      if (response) {
+    await Axios.post(
+      'https://tezeract-tutoracademy-web.herokuapp.com/register/login',
+      {
+        email: email,
+        password: password,
+      },
+    ).then(response => {
+      if (response.data.userExist) {
         console.log(response);
         console.log(response.data.userExist.role);
 
-        console.log("done");
+        console.log('done');
         setLoginStatus(response.data.message);
         dispatch(actionCreators.getLoginEmail(response.data.userExist.email));
         dispatch(actionCreators.getLoginRole(response.data.userExist.role));
         history.push(`/${response.data.userExist.role}`);
       } else {
-        console.log("error");
+        alert(response.data.error);
       }
     });
   };
@@ -105,7 +108,7 @@ const Login = () => {
             placeholder="Enter username"
             fullWidth
             required
-            onChange={(e) => {
+            onChange={e => {
               setEmail(e.target.value);
             }}
           />
@@ -115,7 +118,7 @@ const Login = () => {
             type="password"
             fullWidth
             required
-            onChange={(e) => {
+            onChange={e => {
               setPassword(e.target.value);
             }}
           />

@@ -1,47 +1,47 @@
-import React, { useState, useEffect } from "react";
-import { bindActionCreators } from "redux";
-import { actionCreators } from "../../state/index";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { TextField, Button, CardActionArea, CardActions } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import Axios from "axios";
-import { Avatar } from "@material-ui/core";
-import { textAlign } from "@mui/system";
+import React, { useState, useEffect } from 'react';
+import { bindActionCreators } from 'redux';
+import { actionCreators } from '../../state/index';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { TextField, Button, CardActionArea, CardActions } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import Axios from 'axios';
+import { Avatar } from '@material-ui/core';
+import { textAlign } from '@mui/system';
 
 const textField = {
   marginTop: 10,
 };
 const avatarStyle = {
-  backgroundColor: "#56c3ff",
-  margin: "auto",
-  color: "#ffff",
+  backgroundColor: '#56c3ff',
+  margin: 'auto',
+  color: '#ffff',
 };
 const center = {
-  margin: "auto",
+  margin: 'auto',
 };
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
   width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 };
 
-const Posts = (props) => {
-  const email = useSelector((state) => state.amount);
-  const [acceptEmail, setAcceptEmail] = useState("");
-  const [acceptDetail, setAcceptDetail] = useState("");
-  const [acceptOffer, setAcceptOffer] = useState("");
+const Posts = props => {
+  const email = useSelector(state => state.amount);
+  const [acceptEmail, setAcceptEmail] = useState('');
+  const [acceptDetail, setAcceptDetail] = useState('');
+  const [acceptOffer, setAcceptOffer] = useState('');
   const [acceptProposals, setAcceptProposals] = useState([]);
 
   const { id, emails, course, emailp, coursep, descriptionp } = props;
@@ -58,31 +58,40 @@ const Posts = (props) => {
   };
 
   const deleteData = async () => {
-    await Axios.post("http://localhost:3002/register/deletepost", {
-      id: id,
-    }).then((response) => {
+    await Axios.post(
+      'https://tezeract-tutoracademy-web.herokuapp.com/register/deletepost',
+      {
+        id: id,
+      },
+    ).then(response => {
       console.log(response.data);
+      alert('deleted');
     });
   };
 
   const acceptData = async () => {
-    await Axios.post("http://localhost:3002/register/accepts", {
-      email: email,
-      accepts: accepts,
-    }).then((response) => {
+    await Axios.post(
+      'https://tezeract-tutoracademy-web.herokuapp.com/register/accepts',
+      {
+        email: email,
+        accepts: accepts,
+      },
+    ).then(response => {
       console.log(response);
 
       setAcceptProposals(response.data);
+      alert('Accepted');
     });
 
-    await Axios.post("http://localhost:3002/register/deletepost", {
-      id: id,
-    }).then((response) => {
+    await Axios.post(
+      'https://tezeract-tutoracademy-web.herokuapp.com/register/deletepost',
+      {
+        id: id,
+      },
+    ).then(response => {
       console.log(response.data);
     });
   };
-
-  
 
   return (
     <div>

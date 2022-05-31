@@ -86,3 +86,13 @@
      font-weight: lighter;
      
  }
+
+ .NavButton{
+   background-color: rgba(76, 175, 80, 0) !important;
+   color: rgb(156, 156, 156) !important;
+   border-color:rgba(76, 175, 80, 0) !important;
+ }
+
+ .mainHeader{
+   color: #bbbbbb !important;
+ }
